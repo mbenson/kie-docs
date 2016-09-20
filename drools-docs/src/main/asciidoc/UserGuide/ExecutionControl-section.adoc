@@ -28,7 +28,7 @@ When Rule Runtime Actions are taking place, no rules are being fired.
 === Cashflow Example
 
 
-So far the data and the matching process has been simple and small.
+So far the data and the matching process have been simple and small.
 To mix things up a bit a new example will be explored that handles cashflow calculations over date periods.
 The state of the engine will be illustratively shown at key stages to help get a better understanding of what is actually going on under the hood.
 Three classes will be used, as shown below.
@@ -146,9 +146,9 @@ image::UserGuide/tables2.png[]
 The two cashflow tables above represent the matched data for the two rules.
 The data is matched during the insertion stage and, as you discovered in the previous chapter, does not fire straight away, but only after `fireAllRules()` is called.
 Meanwhile, the rule plus its matched data is placed on the Agenda and referred to as an RuIe Match or Rule Instance.
-The Agenda is a table of Rule Matches that are able to fire and have their consequences executed, as soon as fireAllRules() is called.
+The Agenda is a table of Rule Matches that are able to fire and have their consequences executed, as soon as `fireAllRules()` is called.
 Rule Matches on the Agenda are referred to as a [term]_conflict set_
- and their execution is determine by a conflict resolution strategy.
+ and their execution is determined by a conflict resolution strategy.
 Notice that the order of execution so far is considered arbitrary.
 
 .CashFlows and Account
@@ -217,8 +217,8 @@ image::UserGuide/tables6.png[]
 
 
 Agenda groups allow you to place rules into groups, and to place those groups onto a stack.
-The stack has push/pop bevaviour.
-Calling "setFocus" places the group onto the stack:
+The stack has push/pop behaviour.
+Calling `setFocus()` places the group onto the stack:
 
 [source,java]
 ----
@@ -261,7 +261,7 @@ end
 |===
 
 
-First set the focus to the "report" group and then by placing the focus on "calculation" we ensure that group is evaluated first.
+First we set the focus to the "report" group and then by placing the focus on "calculation" we ensure that group is evaluated first:
 
 [source,java]
 ----
@@ -281,7 +281,7 @@ It has two ruleflow-group nodes which ensures that the calculation rules are exe
 
 image::UserGuide/ruleflow.png[]
 
-The use of the ruleflow-group attribute in a rule is shown below.
+The use of the ruleflow-group attribute in a rule is shown below:
 
 [cols="1a,1a"]
 |===
