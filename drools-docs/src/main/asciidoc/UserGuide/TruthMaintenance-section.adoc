@@ -4,7 +4,7 @@
 
 After regular inserts you have to retract facts explicitly.
 With _logical_ assertions, the fact that was asserted will be automatically retracted when the conditions that asserted it in the first place are no longer true.
-Actually, it's even cleverer then that, because it will be retracted only if there isn't any single condition that supports the logical assertion.
+Actually, it's even cleverer than that, because it will be retracted only if no single condition supports the logical assertion.
 
 Normal insertions are said to be __stated__, i.e., just like the intuitive meaning of "stating a fact" implies.
 Using a `HashMap` and a counter, we track how many times a particular equality is __stated__; this means we count how many different instances are equal.
@@ -16,7 +16,7 @@ As soon as we have no more justifications the logical object is automatically re
 
 If we try to _logically_ insert an object when there is an equal _stated_ object, this will fail and return null.
 If we _state_ an object that has an existing equal object that is _justified_ we override the Fact; how this override works depends on the configuration setting ``WM_BEHAVIOR_PRESERVE``.
-When the property is set to discard we use the existing handle and replace the existing instance with the new Object, which is the default behavior; otherwise we override it to _stated_ but we create an new ``FactHandle``.
+When the property is set to discard we use the existing handle and replace the existing instance with the new Object, which is the default behavior; otherwise we override it to _stated_ but we create a new ``FactHandle``.
 
 This can be confusing on a first read, so hopefully the flow charts below help.
 When it says that it returns a new ``FactHandle``, this also indicates the `Object` was propagated through the network.
@@ -32,7 +32,7 @@ image::HybridReasoning/Logical_Assertion.png[align="center"]
 === Bus Pass Example With Inference and TMS
 
 
-The previous example was issuing ID cards to over 18s, in this example we now issue bus passes, either a child or adult pass.
+The previous example was issuing ID cards to over 18s. In this example we now issue bus passes: either a child or adult pass.
 
 [source]
 ----
@@ -53,7 +53,7 @@ end
 As before the above example is considered monolithic, leaky and providing poor separation of concerns.
 
 As before we can provide a more robust application with a separation of concerns using inference.
-Notice this time we don't just insert the inferred object, we use "insertLogical":
+Notice this time we don't just insert the inferred object, we use `insertLogical`:
 
 [source]
 ----
@@ -70,12 +70,12 @@ end
 ----
 
 
-A "insertLogical" is part of the Drools Truth Maintenance System (TMS). When a fact is logically inserted, this fact is dependant on the truth of the "when" clause.
+A "insertLogical" is part of the Drools Truth Maintenance System (TMS). When a fact is logically inserted, this fact is dependent on the truth of the "when" clause.
 It means that when the rule becomes false the fact is automatically retracted.
 This works particularly well as the two rules are mutually exclusive.
 So in the above rules if the person is under 16 it inserts an IsChild fact, once the person is 16 or over the IsChild fact is automatically retracted and the IsAdult fact inserted.
 
-Returning to the code to issue bus passes, these two rules can + logically insert the ChildBusPass and AdultBusPass facts, as the TMS + supports chaining of logical insertions for a cascading set of retracts.
+Returning to the code to issue bus passes, these two rules can logically insert the ChildBusPass and AdultBusPass facts, as the TMS supports chaining of logical insertions for a cascading set of retracts.
 
 [source]
 ----
@@ -118,7 +118,7 @@ As the truth maintenance system needs to know when two different physical object
 Two objects are equal if and only if their equals methods return true for each other and if their hashCode methods return the same values.
 See the Java API for more details (but do keep in mind you _MUST_ override both equals and hashCode).
 
-TMS behaviour is not affected by theruntime configuration of Identity vs Equality, TMS is always equality.
+TMS behaviour is not affected by the runtime configuration of Identity vs Equality, TMS is always equality.
 
 === Deleting stated or logically asserted facts from the working memory
 
