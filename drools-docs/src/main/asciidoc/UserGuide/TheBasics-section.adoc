@@ -7,8 +7,8 @@ So where do we get started? There are so many use cases and so much functionalit
 Have no fear my intrepid adventurer, the complexity is layered and you can ease yourself in with simple use cases.
 
 Stateless session, not utilising inference, forms the simplest use case.
-A stateless session can be called like a function passing it some data and then receiving some results back.
-Some common use cases for stateless sessions are, but not limited to:
+A stateless session can be called like a function, passing it some data and then receiving some results back.
+Some common use cases for stateless sessions are (but are not limited to):
 
 * Validation
 ** Is this person eligible for a mortgage?
@@ -19,7 +19,7 @@ Some common use cases for stateless sessions are, but not limited to:
 ** Send incoming messages to a destination.
 
 
-So let's start with a very simple example using a driving license application.
+So let's start with a very simple example using a driving license application:
 
 [source,java]
 ----
@@ -59,11 +59,11 @@ There its properties can be updated.
 The dollar character ('$') is optional, but it helps to differentiate variable names from field names.
 The process of matching patterns against the inserted data is, not surprisingly, often referred to as __pattern matching__.
 
-To use this rule it is necessary to put it a Drools file, just a plain text file with .drl extension , short for "Drools Rule Language". Let's call this file licenseApplication.drl, and store it in a Kie Project.
-A Kie Project has the structure of a normal Maven project with an additional file (kmodule.xml) defining the ``KieBase``s and ``KieSession``s that can be created.
-This file has to be placed in the resources/META-INF folder of the Maven project while all the other Drools artifacts, such as the licenseApplication.drl containing the former rule, must be stored in the resources folder or in any other subfolder under it.
+To use this rule it is necessary to put it in a Drools file, which is just a plain text file with `.drl` extension , short for "Drools Rule Language". Let's call this file `licenseApplication.drl`, and store it in a Kie Project.
+A Kie Project has the structure of a normal Maven project with an additional file `kmodule.xml` defining the ``KieBase``s and ``KieSession``s that can be created.
+This file has to be placed in the resources/META-INF folder of the Maven project while all the other Drools artifacts, such as the `licenseApplication.drl` containing the former rule, must be stored in the resources folder or in any other subfolder under it.
 
-Since meaningful defaults have been provided for all configuration aspects, the simplest kmodule.xml file can contain just an empty kmodule tag like the following:
+Since meaningful defaults have been provided for all configuration aspects, the simplest `kmodule.xml` file can contain just an empty kmodule tag like the following:
 
 [source,xml]
 ----
@@ -72,7 +72,7 @@ Since meaningful defaults have been provided for all configuration aspects, the 
 ----
 
 
-At this point it is possible to create a `KieContainer` that reads the files to be built, from the classpath.
+At this point it is possible to create a `KieContainer` that reads the files to be built from the classpath.
 
 [source,java]
 ----
@@ -97,7 +97,7 @@ assertFalse( applicant.isValid() );
 The preceding code executes the data against the rules.
 Since the applicant is under the age of 18, the application is marked as invalid.
 
-So far we've only used a single instance, but what if we want to use more than one? We can execute against any object implementing Iterable, such as a collection.
+So far we've only used a single instance, but what if we want to use more than one? We can execute against any object implementing ``Iterable``, such as a collection.
 Let's add another class called ``Application``, which has the date of the application, and we'll also move the boolean valid field to the `Application` class.
 
 [source,java]
@@ -181,7 +181,7 @@ assertEquals( new Person( "Mr John Smith" ), results.getValue( "mrSmith" ) );
 
 
 Stateful Sessions are long lived and allow iterative changes over time.
-Some common use cases for Stateful Sessions are, but not limited to:
+Some common use cases for Stateful Sessions are (but are not limited to):
 
 * Monitoring
 ** Stock market monitoring and analysis for semi-automatic buying.
@@ -314,7 +314,7 @@ end
 ----
 
 
-As we did in the Stateless Session example, the above rules should be placed in a single DRL file and saved into the resouces folder of your Maven project or any of its subfolder.
+As we did in the Stateless Session example, the above rules should be placed in a single DRL file and saved into the resources folder of your Maven project or any of its subfolders.
 As before, we can then obtain a `KieSession` from the ``KieContainer``.
 The only difference is that this time we create a Stateful Session, whereas before we created a Stateless Session.
 
